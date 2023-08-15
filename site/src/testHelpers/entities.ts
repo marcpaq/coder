@@ -567,6 +567,7 @@ export const MockWorkspaceAgent: TypesGen.WorkspaceAgent = {
   health: {
     healthy: true,
   },
+  default_apps: [],
 }
 
 export const MockWorkspaceAgentDisconnected: TypesGen.WorkspaceAgent = {

@@ -7767,6 +7767,23 @@ const docTemplate = `{
                 }
             }
         },
+        "codersdk.DefaultApp": {
+            "type": "string",
+            "enum": [
+                "vscode-desktop",
+                "vscode-insiders",
+                "web-terminal",
+                "port-forward-helper",
+                "ssh-helper"
+            ],
+            "x-enum-varnames": [
+                "DefaultAppVSCodeDesktop",
+                "DefaultAppVSCodeInsiders",
+                "DefaultAppWebTerminal",
+                "DefaultAppPortForward",
+                "DefaultAppSSH"
+            ]
+        },
         "codersdk.DeploymentConfig": {
             "type": "object",
             "properties": {
@@ -10476,6 +10493,12 @@ const docTemplate = `{
                 "created_at": {
                     "type": "string",
                     "format": "date-time"
+                },
+                "default_apps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/codersdk.DefaultApp"
+                    }
                 },
                 "directory": {
                     "type": "string"

@@ -133,6 +133,16 @@ type WorkspaceAgentMetadata struct {
 	Description WorkspaceAgentMetadataDescription `json:"description"`
 }
 
+type DefaultApp string
+
+const (
+	DefaultAppVSCodeDesktop  DefaultApp = "vscode-desktop"
+	DefaultAppVSCodeInsiders DefaultApp = "vscode-insiders"
+	DefaultAppWebTerminal    DefaultApp = "web-terminal"
+	DefaultAppPortForward    DefaultApp = "port-forward-helper"
+	DefaultAppSSH            DefaultApp = "ssh-helper"
+)
+
 type WorkspaceAgent struct {
 	ID                          uuid.UUID                           `json:"id" format:"uuid"`
 	CreatedAt                   time.Time                           `json:"created_at" format:"date-time"`
@@ -169,6 +179,7 @@ type WorkspaceAgent struct {
 	ShutdownScriptTimeoutSeconds int32                `json:"shutdown_script_timeout_seconds"`
 	Subsystems                   []AgentSubsystem     `json:"subsystems"`
 	Health                       WorkspaceAgentHealth `json:"health"` // Health reports the health of the agent.
+	DefaultApps                  []DefaultApp         `json:"default_apps"`
 }
 
 type WorkspaceAgentHealth struct {

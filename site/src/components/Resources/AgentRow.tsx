@@ -30,6 +30,7 @@ import {
   workspaceAgentLogsMachine,
 } from "xServices/workspaceAgentLogs/workspaceAgentLogsXService"
 import {
+  DefaultApp,
   Workspace,
   WorkspaceAgent,
   WorkspaceAgentMetadata,
@@ -44,6 +45,8 @@ import { AgentVersion } from "./AgentVersion"
 import { AgentStatus } from "./AgentStatus"
 import Collapse from "@mui/material/Collapse"
 import { useProxy } from "contexts/ProxyContext"
+import { Typegen0 } from "xServices/auth/authXService.typegen"
+import { Agent } from "../../../e2e/provisionerGenerated"
 
 export interface AgentRowProps {
   agent: WorkspaceAgent
@@ -168,6 +171,17 @@ export const AgentRow: FC<AgentRowProps> = ({
     [logListDivRef],
   )
 
+  const containsDefaultApp = (
+    agent: WorkspaceAgent,
+    name: DefaultApp,
+  ): boolean => {
+    if (agent.default_apps.length == 0) {
+      return false
+    }
+
+    return agent.default_apps.includes(name)
+  }
+
   return (
     <Stack
       key={agent.id}
@@ -217,14 +231,15 @@ export const AgentRow: FC<AgentRowProps> = ({
           <div className={styles.agentButtons}>
             {shouldDisplayApps && (
               <>
-                {!hideVSCodeDesktopButton && (
-                  <VSCodeDesktopButton
-                    userName={workspace.owner_name}
-                    workspaceName={workspace.name}
-                    agentName={agent.name}
-                    folderPath={agent.expanded_directory}
-                  />
-                )}
+                {containsDefaultApp(agent, "vscode-desktop") &&
+                  !hideVSCodeDesktopButton && (
+                    <VSCodeDesktopButton
+                      userName={workspace.owner_name}
+                      workspaceName={workspace.name}
+                      agentName={agent.name}
+                      folderPath={agent.expanded_directory}
+                    />
+                  )}
                 {agent.apps.map((app) => (
                   <AppLink
                     key={app.slug}
@@ -236,12 +251,14 @@ export const AgentRow: FC<AgentRowProps> = ({
               </>
             )}
 
-            <TerminalLink
-              workspaceName={workspace.name}
-              agentName={agent.name}
-              userName={workspace.owner_name}
-            />
-            {!hideSSHButton && (
+            {agent.default_apps.includes("web-terminal") && (
+              <TerminalLink
+                workspaceName={workspace.name}
+                agentName={agent.name}
+                userName={workspace.owner_name}
+              />
+            )}
+            {!hideSSHButton && agent.default_apps.includes("ssh-helper") && (
               <SSHButton
                 workspaceName={workspace.name}
                 agentName={agent.name}
@@ -249,7 +266,8 @@ export const AgentRow: FC<AgentRowProps> = ({
               />
             )}
             {proxy.preferredWildcardHostname &&
-              proxy.preferredWildcardHostname !== "" && (
+              proxy.preferredWildcardHostname !== "" &&
+              agent.default_apps.includes("port-forward-helper") && (
                 <PortForwardButton
                   host={proxy.preferredWildcardHostname}
                   workspaceName={workspace.name}

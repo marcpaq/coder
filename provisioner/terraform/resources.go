@@ -46,6 +46,7 @@ type agentAttributes struct {
 	ShutdownScript               string          `mapstructure:"shutdown_script"`
 	ShutdownScriptTimeoutSeconds int32           `mapstructure:"shutdown_script_timeout"`
 	Metadata                     []agentMetadata `mapstructure:"metadata"`
+	DefaultApps                  *[]string       `mapstructure:"default_apps"`
 }
 
 // A mapping of attributes on the "coder_app" resource.
@@ -182,6 +183,11 @@ func ConvertState(modules []*tfjson.StateModule, rawGraph string) (*State, error
 				})
 			}
 
+			var defaultApps = []string{"*"}
+			if attrs.DefaultApps != nil {
+				defaultApps = *attrs.DefaultApps
+			}
+
 			agent := &proto.Agent{
 				Name:                         tfResource.Name,
 				Id:                           attrs.ID,
@@ -198,6 +204,7 @@ func ConvertState(modules []*tfjson.StateModule, rawGraph string) (*State, error
 				ShutdownScript:               attrs.ShutdownScript,
 				ShutdownScriptTimeoutSeconds: attrs.ShutdownScriptTimeoutSeconds,
 				Metadata:                     metadata,
+				DefaultApps:                  defaultApps,
 			}
 			switch attrs.Auth {
 			case "token":

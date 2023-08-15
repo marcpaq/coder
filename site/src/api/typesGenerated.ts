@@ -1343,6 +1343,7 @@ export interface WorkspaceAgent {
   readonly shutdown_script_timeout_seconds: number
   readonly subsystems: AgentSubsystem[]
   readonly health: WorkspaceAgentHealth
+  readonly default_apps: DefaultApp[]
 }
 
 // From codersdk/workspaceagents.go
@@ -1580,6 +1581,21 @@ export const BuildReasons: BuildReason[] = [
   "autostart",
   "autostop",
   "initiator",
+]
+
+// From codersdk/workspaceagents.go
+export type DefaultApp =
+  | "port-forward-helper"
+  | "ssh-helper"
+  | "vscode-desktop"
+  | "vscode-insiders"
+  | "web-terminal"
+export const DefaultApps: DefaultApp[] = [
+  "port-forward-helper",
+  "ssh-helper",
+  "vscode-desktop",
+  "vscode-insiders",
+  "web-terminal",
 ]
 
 // From codersdk/deployment.go

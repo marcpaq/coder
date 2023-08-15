@@ -80,6 +80,7 @@ curl -X GET http://coder-server:8080/api/v2/users/{user}/workspace/{workspacenam
           "architecture": "string",
           "connection_timeout_seconds": 0,
           "created_at": "2019-08-24T14:15:22Z",
+          "default_apps": ["vscode-desktop"],
           "directory": "string",
           "disconnected_at": "2019-08-24T14:15:22Z",
           "environment_variables": {
@@ -242,6 +243,7 @@ curl -X GET http://coder-server:8080/api/v2/workspacebuilds/{workspacebuild} \
           "architecture": "string",
           "connection_timeout_seconds": 0,
           "created_at": "2019-08-24T14:15:22Z",
+          "default_apps": ["vscode-desktop"],
           "directory": "string",
           "disconnected_at": "2019-08-24T14:15:22Z",
           "environment_variables": {
@@ -543,6 +545,7 @@ curl -X GET http://coder-server:8080/api/v2/workspacebuilds/{workspacebuild}/res
         "architecture": "string",
         "connection_timeout_seconds": 0,
         "created_at": "2019-08-24T14:15:22Z",
+        "default_apps": ["vscode-desktop"],
         "directory": "string",
         "disconnected_at": "2019-08-24T14:15:22Z",
         "environment_variables": {
@@ -641,6 +644,7 @@ Status Code **200**
 | `»» architecture`                    | string                                                                                                 | false    |              |                                                                                                                                                                                                                                                |
 | `»» connection_timeout_seconds`      | integer                                                                                                | false    |              |                                                                                                                                                                                                                                                |
 | `»» created_at`                      | string(date-time)                                                                                      | false    |              |                                                                                                                                                                                                                                                |
+| `»» default_apps`                    | array                                                                                                  | false    |              |                                                                                                                                                                                                                                                |
 | `»» directory`                       | string                                                                                                 | false    |              |                                                                                                                                                                                                                                                |
 | `»» disconnected_at`                 | string(date-time)                                                                                      | false    |              |                                                                                                                                                                                                                                                |
 | `»» environment_variables`           | object                                                                                                 | false    |              |                                                                                                                                                                                                                                                |
@@ -800,6 +804,7 @@ curl -X GET http://coder-server:8080/api/v2/workspacebuilds/{workspacebuild}/sta
           "architecture": "string",
           "connection_timeout_seconds": 0,
           "created_at": "2019-08-24T14:15:22Z",
+          "default_apps": ["vscode-desktop"],
           "directory": "string",
           "disconnected_at": "2019-08-24T14:15:22Z",
           "environment_variables": {
@@ -967,6 +972,7 @@ curl -X GET http://coder-server:8080/api/v2/workspaces/{workspace}/builds \
             "architecture": "string",
             "connection_timeout_seconds": 0,
             "created_at": "2019-08-24T14:15:22Z",
+            "default_apps": ["vscode-desktop"],
             "directory": "string",
             "disconnected_at": "2019-08-24T14:15:22Z",
             "environment_variables": {
@@ -1101,6 +1107,7 @@ Status Code **200**
 | `»»» architecture`                    | string                                                                                                 | false    |              |                                                                                                                                                                                                                                                |
 | `»»» connection_timeout_seconds`      | integer                                                                                                | false    |              |                                                                                                                                                                                                                                                |
 | `»»» created_at`                      | string(date-time)                                                                                      | false    |              |                                                                                                                                                                                                                                                |
+| `»»» default_apps`                    | array                                                                                                  | false    |              |                                                                                                                                                                                                                                                |
 | `»»» directory`                       | string                                                                                                 | false    |              |                                                                                                                                                                                                                                                |
 | `»»» disconnected_at`                 | string(date-time)                                                                                      | false    |              |                                                                                                                                                                                                                                                |
 | `»»» environment_variables`           | object                                                                                                 | false    |              |                                                                                                                                                                                                                                                |
@@ -1314,6 +1321,7 @@ curl -X POST http://coder-server:8080/api/v2/workspaces/{workspace}/builds \
           "architecture": "string",
           "connection_timeout_seconds": 0,
           "created_at": "2019-08-24T14:15:22Z",
+          "default_apps": ["vscode-desktop"],
           "directory": "string",
           "disconnected_at": "2019-08-24T14:15:22Z",
           "environment_variables": {

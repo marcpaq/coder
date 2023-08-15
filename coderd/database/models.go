@@ -1953,8 +1953,9 @@ type WorkspaceAgent struct {
 	// The time the agent entered the starting lifecycle state
 	StartedAt sql.NullTime `db:"started_at" json:"started_at"`
 	// The time the agent entered the ready or start_error lifecycle state
-	ReadyAt    sql.NullTime              `db:"ready_at" json:"ready_at"`
-	Subsystems []WorkspaceAgentSubsystem `db:"subsystems" json:"subsystems"`
+	ReadyAt     sql.NullTime              `db:"ready_at" json:"ready_at"`
+	Subsystems  []WorkspaceAgentSubsystem `db:"subsystems" json:"subsystems"`
+	DefaultApps []string                  `db:"default_apps" json:"default_apps"`
 }
 
 type WorkspaceAgentLog struct {

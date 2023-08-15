@@ -108,6 +108,7 @@ curl -X POST http://coder-server:8080/api/v2/organizations/{organization}/member
             "architecture": "string",
             "connection_timeout_seconds": 0,
             "created_at": "2019-08-24T14:15:22Z",
+            "default_apps": ["vscode-desktop"],
             "directory": "string",
             "disconnected_at": "2019-08-24T14:15:22Z",
             "environment_variables": {
@@ -296,6 +297,7 @@ curl -X GET http://coder-server:8080/api/v2/users/{user}/workspace/{workspacenam
             "architecture": "string",
             "connection_timeout_seconds": 0,
             "created_at": "2019-08-24T14:15:22Z",
+            "default_apps": ["vscode-desktop"],
             "directory": "string",
             "disconnected_at": "2019-08-24T14:15:22Z",
             "environment_variables": {
@@ -483,6 +485,7 @@ curl -X GET http://coder-server:8080/api/v2/workspaces \
                 "architecture": "string",
                 "connection_timeout_seconds": 0,
                 "created_at": "2019-08-24T14:15:22Z",
+                "default_apps": ["vscode-desktop"],
                 "directory": "string",
                 "disconnected_at": "2019-08-24T14:15:22Z",
                 "environment_variables": {
@@ -672,6 +675,7 @@ curl -X GET http://coder-server:8080/api/v2/workspaces/{workspace} \
             "architecture": "string",
             "connection_timeout_seconds": 0,
             "created_at": "2019-08-24T14:15:22Z",
+            "default_apps": ["vscode-desktop"],
             "directory": "string",
             "disconnected_at": "2019-08-24T14:15:22Z",
             "environment_variables": {
@@ -994,6 +998,7 @@ curl -X PUT http://coder-server:8080/api/v2/workspaces/{workspace}/lock \
             "architecture": "string",
             "connection_timeout_seconds": 0,
             "created_at": "2019-08-24T14:15:22Z",
+            "default_apps": ["vscode-desktop"],
             "directory": "string",
             "disconnected_at": "2019-08-24T14:15:22Z",
             "environment_variables": {

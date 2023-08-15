@@ -1933,6 +1933,24 @@ AuthorizationObject can represent a "set" of objects, such as: all workspaces in
 | `allow_path_app_sharing`           | boolean | false    |              |             |
 | `allow_path_app_site_owner_access` | boolean | false    |              |             |
 
+## codersdk.DefaultApp
+
+```json
+"vscode-desktop"
+```
+
+### Properties
+
+#### Enumerated Values
+
+| Value                 |
+| --------------------- |
+| `vscode-desktop`      |
+| `vscode-insiders`     |
+| `web-terminal`        |
+| `port-forward-helper` |
+| `ssh-helper`          |
+
 ## codersdk.DeploymentConfig
 
 ```json
@@ -5375,6 +5393,7 @@ If the schedule is empty, the user will be updated to use the default schedule.|
             "architecture": "string",
             "connection_timeout_seconds": 0,
             "created_at": "2019-08-24T14:15:22Z",
+            "default_apps": ["vscode-desktop"],
             "directory": "string",
             "disconnected_at": "2019-08-24T14:15:22Z",
             "environment_variables": {
@@ -5516,6 +5535,7 @@ If the schedule is empty, the user will be updated to use the default schedule.|
   "architecture": "string",
   "connection_timeout_seconds": 0,
   "created_at": "2019-08-24T14:15:22Z",
+  "default_apps": ["vscode-desktop"],
   "directory": "string",
   "disconnected_at": "2019-08-24T14:15:22Z",
   "environment_variables": {
@@ -5571,6 +5591,7 @@ If the schedule is empty, the user will be updated to use the default schedule.|
 | `architecture`                    | string                                                                                       | false    |              |                                                                                                                                                                                                            |
 | `connection_timeout_seconds`      | integer                                                                                      | false    |              |                                                                                                                                                                                                            |
 | `created_at`                      | string                                                                                       | false    |              |                                                                                                                                                                                                            |
+| `default_apps`                    | array of [codersdk.DefaultApp](#codersdkdefaultapp)                                          | false    |              |                                                                                                                                                                                                            |
 | `directory`                       | string                                                                                       | false    |              |                                                                                                                                                                                                            |
 | `disconnected_at`                 | string                                                                                       | false    |              |                                                                                                                                                                                                            |
 | `environment_variables`           | object                                                                                       | false    |              |                                                                                                                                                                                                            |
@@ -5982,6 +6003,7 @@ If the schedule is empty, the user will be updated to use the default schedule.|
           "architecture": "string",
           "connection_timeout_seconds": 0,
           "created_at": "2019-08-24T14:15:22Z",
+          "default_apps": ["vscode-desktop"],
           "directory": "string",
           "disconnected_at": "2019-08-24T14:15:22Z",
           "environment_variables": {
@@ -6293,6 +6315,7 @@ If the schedule is empty, the user will be updated to use the default schedule.|
       "architecture": "string",
       "connection_timeout_seconds": 0,
       "created_at": "2019-08-24T14:15:22Z",
+      "default_apps": ["vscode-desktop"],
       "directory": "string",
       "disconnected_at": "2019-08-24T14:15:22Z",
       "environment_variables": {
@@ -6505,6 +6528,7 @@ If the schedule is empty, the user will be updated to use the default schedule.|
                 "architecture": "string",
                 "connection_timeout_seconds": 0,
                 "created_at": "2019-08-24T14:15:22Z",
+                "default_apps": ["vscode-desktop"],
                 "directory": "string",
                 "disconnected_at": "2019-08-24T14:15:22Z",
                 "environment_variables": {

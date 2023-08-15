@@ -257,7 +257,7 @@ func Test_Runner(t *testing.T) {
 					continue
 				}
 
-				// And it should be either canceled or cancelling
+				// And it should be either canceled or canceling
 				if build.Job.Status == codersdk.ProvisionerJobCanceled || build.Job.Status == codersdk.ProvisionerJobCanceling {
 					return true
 				}

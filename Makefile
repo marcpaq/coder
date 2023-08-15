@@ -413,6 +413,14 @@ endif
 lint: lint/shellcheck lint/go lint/ts lint/helm lint/site-icons
 .PHONY: lint
 
+go/download:
+	@echo Downloading Go module dependencies
+	@go mod download
+
+tools/tools.go:
+	@echo Installing tools from tools/tools.go
+	@grep _ go.mod | awk -F'"' '{print $2}' | xargs -tI % go install %
+
 lint/site-icons:
 	./scripts/check_site_icons.sh
 
@@ -425,8 +433,7 @@ lint/ts:
 
 lint/go:
 	./scripts/check_enterprise_imports.sh
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.53.2
-	golangci-lint run
+	go run github.com/golangci/golangci-lint/cmd/golangci-lint run
 .PHONY: lint/go
 
 # Use shfmt to determine the shell files, takes editorconfig into consideration.

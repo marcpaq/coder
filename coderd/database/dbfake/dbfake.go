@@ -611,48 +611,6 @@ func uniqueSortedUUIDs(uuids []uuid.UUID) []uuid.UUID {
 	return unique
 }
 
-func (q *FakeQuerier) GetWorkspaceAgentAndOwnerByAuthToken(ctx context.Context, authToken uuid.UUID) (database.GetWorkspaceAgentAndOwnerByAuthTokenRow, error) {
-	q.mutex.RLock()
-	defer q.mutex.RUnlock()
-	var resp database.GetWorkspaceAgentAndOwnerByAuthTokenRow
-	var found bool
-	for _, agt := range q.workspaceAgents {
-		if agt.AuthToken == authToken {
-			resp.WorkspaceAgent = agt
-			found = true
-			break
-		}
-	}
-	if !found {
-		return resp, sql.ErrNoRows
-	}
-
-	// get the related workspace and user
-	for _, res := range q.workspaceResources {
-		if resp.WorkspaceAgent.ResourceID != res.ID {
-			continue
-		}
-		for _, build := range q.workspaceBuilds {
-			if build.JobID != res.JobID {
-				continue
-			}
-			for _, ws := range q.workspaces {
-				if build.WorkspaceID != ws.ID {
-					continue
-				}
-				resp.WorkspaceID = ws.ID
-				if usr, err := q.getUserByIDNoLock(ws.OwnerID); err == nil {
-					resp.OwnerID = usr.ID
-					resp.OwnerRoles = usr.RBACRoles
-					resp.OwnerName = usr.Username
-					return resp, nil
-				}
-			}
-		}
-	}
-	return database.GetWorkspaceAgentAndOwnerByAuthTokenRow{}, sql.ErrNoRows
-}
-
 func (*FakeQuerier) AcquireLock(_ context.Context, _ int64) error {
 	return xerrors.New("AcquireLock must only be called within a transaction")
 }
@@ -2782,18 +2740,46 @@ func (q *FakeQuerier) GetUsersByIDs(_ context.Context, ids []uuid.UUID) ([]datab
 	return users, nil
 }
 
-func (q *FakeQuerier) GetWorkspaceAgentByAuthToken(_ context.Context, authToken uuid.UUID) (database.WorkspaceAgent, error) {
+func (q *FakeQuerier) GetWorkspaceAgentAndOwnerByAuthToken(ctx context.Context, authToken uuid.UUID) (database.GetWorkspaceAgentAndOwnerByAuthTokenRow, error) {
 	q.mutex.RLock()
 	defer q.mutex.RUnlock()
-
-	// The schema sorts this by created at, so we iterate the array backwards.
-	for i := len(q.workspaceAgents) - 1; i >= 0; i-- {
-		agent := q.workspaceAgents[i]
-		if agent.AuthToken == authToken {
-			return agent, nil
+	var resp database.GetWorkspaceAgentAndOwnerByAuthTokenRow
+	var found bool
+	for _, agt := range q.workspaceAgents {
+		if agt.AuthToken == authToken {
+			resp.WorkspaceAgent = agt
+			found = true
+			break
 		}
 	}
-	return database.WorkspaceAgent{}, sql.ErrNoRows
+	if !found {
+		return resp, sql.ErrNoRows
+	}
+
+	// get the related workspace and user
+	for _, res := range q.workspaceResources {
+		if resp.WorkspaceAgent.ResourceID != res.ID {
+			continue
+		}
+		for _, build := range q.workspaceBuilds {
+			if build.JobID != res.JobID {
+				continue
+			}
+			for _, ws := range q.workspaces {
+				if build.WorkspaceID != ws.ID {
+					continue
+				}
+				resp.WorkspaceID = ws.ID
+				if usr, err := q.getUserByIDNoLock(ws.OwnerID); err == nil {
+					resp.OwnerID = usr.ID
+					resp.OwnerRoles = usr.RBACRoles
+					resp.OwnerName = usr.Username
+					return resp, nil
+				}
+			}
+		}
+	}
+	return database.GetWorkspaceAgentAndOwnerByAuthTokenRow{}, sql.ErrNoRows
 }
 
 func (q *FakeQuerier) GetWorkspaceAgentByID(ctx context.Context, id uuid.UUID) (database.WorkspaceAgent, error) {
